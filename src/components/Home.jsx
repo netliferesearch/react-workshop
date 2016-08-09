@@ -19,20 +19,23 @@ export default class Home extends React.Component {
     render() {
         console.log(this.state);
         const list = this.state.photos.map(photo => (
-            <div key={photo.id} className="item">
-                <div className="item__info">
-                    📅 {photo.earth_date}<br />
-                    🚀 {photo.rover.name}<br />
-                    📷 {photo.camera.name} ({photo.camera.full_name})
-                </div>
-                <img src={photo.img_src} alt={photo.camera.name} />
-            </div>
+            <ul key={photo.id} className="list">
+                <li>
+                    <div className="info">
+                        📅 {photo.earth_date}<br />
+                        🚀 {photo.rover.name}<br />
+                        📷 {photo.camera.name} ({photo.camera.full_name})
+                    </div>
+                    <img src={photo.img_src} alt={photo.camera.name} />
+                </li>
+            </ul>
             )
         );
         return (
             <div>
                 <header>
                     <h1>The adventures of the Mars Rovers</h1>
+                    <img src="./src/images/mars-rover.jpg" alt="Mars Rover" />
                 </header>
                 {list}
             </div>
