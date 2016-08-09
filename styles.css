@@ -1,0 +1,36 @@
+* { Box-sizing: Border-box }
+
+body {
+    font-family: 'Inconsolata', monospace;
+    margin: 4rem;
+}
+
+a,
+a:visited {
+    color: blue;
+    text-decoration: none;
+    border-bottom: 4px solid blue;
+}
+
+img {
+    width: 100%;
+}
+
+.item {
+    width: 33.33333%;
+    padding: 1.5rem;
+    position: relative;
+    float: left;
+    margin: 0;
+    height: 100px;
+    overflow: hidden;
+}
+
+.item__info {
+    position: absolute;
+}
+
+header {
+    padding: 8rem 3rem;
+    text-align: center;
+}
