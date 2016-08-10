@@ -7,7 +7,10 @@ export default class Single extends React.Component {
     }
 
     render() {
-        return (<div>MyComponent</div>);
+        return (
+            <div>
+            </div>
+        );
     }
 }
 
