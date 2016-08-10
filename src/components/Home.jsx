@@ -1,6 +1,8 @@
 
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import sortBy from 'lodash/sortBy';
+import classNames from 'classnames';
 
 import data from '../data';
 
@@ -9,6 +11,7 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             gifs: [],
+            sorting: 'none',
         };
     }
 
@@ -18,7 +21,37 @@ export default class Home extends React.Component {
         });
     }
 
+    sortList(field) {
+        let sortedGifs;
+        if (field === 'none') {
+            sortedGifs = data.data;
+        } else {
+            sortedGifs = sortBy(this.state.gifs, ['gif', field]);
+        }
+
+        this.setState({
+            gifs: sortedGifs,
+            sorting: field,
+        });
+    }
+
     render() {
+        const sortOptions = ['none', 'id', 'import_datetime'];
+
+
+        const sorting = sortOptions.map((option) => (
+            <button
+                className={classNames({
+                    sort: true,
+                    'sort--active': this.state.sorting === option,
+                })}
+                onClick={this.sortList.bind(this, option)}
+            >
+            { option }
+            </button>
+            )
+        );
+
         const list = this.state.gifs.map(gif => (
             <li key={gif.id}>
                 <Link to={gif.id}>
@@ -27,11 +60,14 @@ export default class Home extends React.Component {
             </li>
             )
         );
+
         return (
             <div>
                 <header>
-                    <h1>😜 Trending GIF´s 😹</h1>
+                    <h1>😜 Awesome GIF´s 😹</h1>
                 </header>
+                Sort by:
+                { sorting }
                 <ul className="list">
                     {list}
                 </ul>

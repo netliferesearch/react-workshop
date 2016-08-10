@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const App = props => (
     <div>
-        <Link to="/">Awesome GIF´s</Link>
+        <Link to="/">Home</Link>
         {props.children}
     </div>
 );
