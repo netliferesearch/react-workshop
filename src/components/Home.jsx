@@ -19,7 +19,6 @@ export default class Home extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const list = this.state.gifs.map(gif => (
             <li key={gif.id}>
                 <Link to={gif.id}>
