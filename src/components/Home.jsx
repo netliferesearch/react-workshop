@@ -11,8 +11,10 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             gifs: [],
-            sorting: 'none',
+            sortOptions: ['none', 'id', 'import_datetime'],
+            sortSelected: 'none',
         };
+        this.sortList = this.sortList.bind(this);
     }
 
     componentWillMount() {
@@ -31,19 +33,17 @@ export default class Home extends React.Component {
 
         this.setState({
             gifs: sortedGifs,
-            sorting: field,
+            sortSelected: field,
         });
     }
 
     render() {
-        const sortOptions = ['none', 'id', 'import_datetime'];
-
-
-        const sorting = sortOptions.map((option) => (
+        const sorting = this.state.sortOptions.map((option) => (
             <button
+                key={option}
                 className={classNames({
                     sort: true,
-                    'sort--active': this.state.sorting === option,
+                    'sort--active': this.state.sortSelected === option,
                 })}
                 onClick={this.sortList.bind(this, option)}
             >
@@ -54,7 +54,7 @@ export default class Home extends React.Component {
 
         const list = this.state.gifs.map(gif => (
             <li key={gif.id}>
-                <Link to={gif.id}>
+                <Link to={gif.slug}>
                     <img src={gif.images.downsized.url} alt={gif.id} />
                 </Link>
             </li>

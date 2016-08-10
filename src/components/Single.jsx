@@ -14,9 +14,9 @@ export default class Single extends React.Component {
     }
 
     componentWillMount() {
-        const id = this.props.params.id;
+        const slug = this.props.params.slug;
         this.setState({
-            gif: find(data.data, { id }),
+            gif: find(data.data, { slug }),
         });
     }
 
