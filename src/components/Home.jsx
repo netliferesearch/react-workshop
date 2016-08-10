@@ -6,42 +6,38 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: [],
+            gifs: [],
         };
     }
 
     componentWillMount() {
         this.setState({
-            photos: data.photos,
+            gifs: data.data,
         });
     }
 
     render() {
         console.log(this.state);
-        const list = this.state.photos.map(photo => (
-            <ul key={photo.id} className="list">
-                <li>
-                    <div className="info">
-                        📅 {photo.earth_date}<br />
-                        🚀 {photo.rover.name}<br />
-                        📷 {photo.camera.name} ({photo.camera.full_name})
-                    </div>
-                    <img src={photo.img_src} alt={photo.camera.name} />
-                </li>
-            </ul>
+        const list = this.state.gifs.map(gif => (
+            <li key={gif.id} >
+                {gif.id}
+                <img src={gif.images.original.url} />
+            </li>
             )
         );
         return (
             <div>
                 <header>
-                    <h1>The adventures of the Mars Rovers</h1>
-                    <img src="./src/images/mars-rover.jpg" alt="Mars Rover" />
+                    <h1>Trending GIF´s</h1>
                 </header>
-                {list}
+                <ul className="list">
+                    {list}
+                </ul>
             </div>
         );
     }
 }
 
 Home.propTypes = {
+    list: PropTypes.array.isRequired,
 };
