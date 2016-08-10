@@ -23,7 +23,6 @@ export default class Home extends React.Component {
         const list = this.state.gifs.map(gif => (
             <li key={gif.id}>
                 <Link to={gif.id}>
-                    {gif.id}
                     <img src={gif.images.downsized.url} alt={gif.id} />
                 </Link>
             </li>
