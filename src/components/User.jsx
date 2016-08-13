@@ -1,8 +1,9 @@
 
 import React, { PropTypes } from 'react';
+import isEmpty from 'lodash/isEmpty';
 
 const User = (props) => {
-    if (Object.keys(props.user).length === 0) {
+    if (isEmpty(props.user)) {
         return <span> by anonymous</span>;
     }
     return (
