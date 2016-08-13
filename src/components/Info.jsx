@@ -1,36 +1,22 @@
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
+import User from './User.jsx';
+import Source from './Source.jsx';
 
 const Info = (props) => {
-
     const time = moment(props.time).fromNow();
 
-    let user;
-    if (props.username === '') {
-        user = 'Anonymous Geek';
-    } else {
-        user = (
-            <img className="avatar" src={props.sourceUrl} alt={props.username} />
-        );
-    }
-
-    let source;
-    if (props.source === '') {
-        source = 'somewhere on internet';
-    } else {
-        source = <a href={props.sourceUrl}>{props.source}</a>;
-    }
-
-    return(
+    return (
         <div className="info">
-            Posted <strong>{time}</strong> from {source} by {user}
+            Posted <strong>{time}</strong>
+            <Source url={props.sourceUrl} name={props.source} />
+            <User user={props.user} />
         </div>
-    )
+    );
 };
 
 Info.propTypes = {
-    link: PropTypes.string.isRequired,
     user: PropTypes.object.isRequired,
     source: PropTypes.string.isRequired,
     sourceUrl: PropTypes.string.isRequired,

@@ -25,13 +25,11 @@ export default class Single extends React.Component {
 
     render() {
         const gif = this.state.gif;
-        console.log(gif);
         return (
             <div>
                 <Gif url={gif.images.original.url} alt={gif.id} />
                 <Info
-                    link={gif.source_post_url}
-                    username={gif.user || {}}
+                    user={gif.user || {}}
                     source={gif.source}
                     sourceUrl={gif.source_post_url}
                     time={gif.import_datetime}
