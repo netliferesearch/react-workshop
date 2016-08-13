@@ -1,5 +1,6 @@
 
 import React from 'react';
+import update from 'react-addons-update';
 import sortBy from 'lodash/sortBy';
 import data from '../../data';
 import Home from './Index.jsx';
@@ -18,7 +19,7 @@ export default class HomeContainer extends React.Component {
         this.setState({
             gifs: data.data,
             sorting: {
-                options: ['none', 'id', 'import_datetime'],
+                options: ['none', 'id', 'import_datetime', 'trending_datetime'],
                 selected: 'none',
             },
         });
@@ -26,22 +27,29 @@ export default class HomeContainer extends React.Component {
 
     sortList(field) {
         return () => {
-            let sortedGifs;
             if (field === 'none') {
-                this.setState({
-                    gifs: data.data,
-                });
-            } else {
-                sortedGifs = sortBy(this.state.gifs, ['gif', field]);
+                this.setState(
+                    update(this.state, {
+                        gifs: {
+                            $set: data.data,
+                        },
+                        sorting: {
+                            selected: { $set: field },
+                        },
+                    })
+                );
             }
 
-            this.setState({
-                gifs: sortedGifs,
-                sorting: {
-                    options: ['none', 'id', 'import_datetime'],
-                    selected: field,
-                },
-            });
+            this.setState(
+                update(this.state, {
+                    gifs: {
+                        $set: sortBy(this.state.gifs, ['gif', field]),
+                    },
+                    sorting: {
+                        selected: { $set: field },
+                    },
+                })
+            );
         };
     }
 
