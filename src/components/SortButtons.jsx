@@ -3,12 +3,12 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 const SortButtons = (props) => {
-    const sorting = props.options.map((option) => (
+    const sorting = props.sorting.options.map((option) => (
         <button
             key={option}
             className={classNames({
                 sort: true,
-                'sort--active': props.selected === option,
+                'sort--active': props.sorting.selected === option,
             })}
             onClick={props.click(option)}
         >
@@ -24,8 +24,7 @@ const SortButtons = (props) => {
 };
 
 SortButtons.propTypes = {
-    options: PropTypes.array.isRequired,
-    selected: PropTypes.string.isRequired,
+    sorting: PropTypes.object.isRequired,
     click: PropTypes.func.isRequired,
 };
 
