@@ -1,8 +1,10 @@
 
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
 import sortBy from 'lodash/sortBy';
-import classNames from 'classnames';
+
+import Header from './Header.jsx';
+import SortButtons from './SortButtons.jsx';
+import List from './List.jsx';
 
 import data from '../data';
 
@@ -11,8 +13,8 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             gifs: [],
-            sortOptions: ['none', 'id', 'import_datetime'],
-            sortSelected: 'none',
+            sortOptions: [],
+            sortSelected: '',
         };
         this.sortList = this.sortList.bind(this);
     }
@@ -20,62 +22,37 @@ export default class Home extends React.Component {
     componentWillMount() {
         this.setState({
             gifs: data.data,
+            sortOptions: ['none', 'id', 'import_datetime'],
+            sortSelected: 'none',
         });
     }
 
     sortList(field) {
-        let sortedGifs;
-        if (field === 'none') {
-            sortedGifs = data.data;
-        } else {
-            sortedGifs = sortBy(this.state.gifs, ['gif', field]);
-        }
+        return () => {
+            let sortedGifs;
+            if (field === 'none') {
+                sortedGifs = data.data;
+            } else {
+                sortedGifs = sortBy(this.state.gifs, ['gif', field]);
+            }
 
-        this.setState({
-            gifs: sortedGifs,
-            sortSelected: field,
-        });
+            this.setState({
+                gifs: sortedGifs,
+                sortSelected: field,
+            });
+        };
     }
 
     render() {
-        const sorting = this.state.sortOptions.map((option) => (
-            <button
-                key={option}
-                className={classNames({
-                    sort: true,
-                    'sort--active': this.state.sortSelected === option,
-                })}
-                onClick={this.sortList.bind(this, option)}
-            >
-            { option }
-            </button>
-            )
-        );
-
-        const list = this.state.gifs.map(gif => (
-            <li key={gif.id}>
-                <Link to={gif.slug}>
-                    <img src={gif.images.downsized.url} alt={gif.id} />
-                </Link>
-            </li>
-            )
-        );
-
         return (
             <div>
-                <header>
-                    <h1>😜 Awesome GIF´s 😹</h1>
-                </header>
-                Sort by:
-                { sorting }
-                <ul className="list">
-                    {list}
-                </ul>
+                <Header title="😜 Awesome GIF´s 😹" />
+                <SortButtons
+                    options={this.state.sortOptions}                     selected={this.state.sortSelected}
+                    click={this.sortList}
+                />
+                <List gifs={this.state.gifs} />
             </div>
         );
     }
 }
-
-Home.propTypes = {
-    // list: PropTypes.array.isRequired,
-};

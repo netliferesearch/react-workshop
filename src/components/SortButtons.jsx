@@ -1,25 +1,33 @@
-import React, { PropTypes } from 'react'
+
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 const SortButtons = (props) => {
-    const buttons = props.options.map((option) => (
+    const sorting = props.options.map((option) => (
         <button
             key={option}
             className={classNames({
                 sort: true,
-                // 'sort--active': this.state.selectedOption === option,
+                'sort--active': props.selected === option,
             })}
-            onClick={props.sortList}
+            onClick={props.click(option)}
         >
-        { option }
+            { option }
         </button>
         )
     );
     return (
         <div>
-            {buttons}
+            Sort by: {sorting}
         </div>
     );
 };
+
+SortButtons.propTypes = {
+    options: PropTypes.array.isRequired,
+    selected: PropTypes.string.isRequired,
+    click: PropTypes.func.isRequired,
+};
+
 
 export default SortButtons;

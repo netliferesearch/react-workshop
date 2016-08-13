@@ -1,7 +1,9 @@
 
 import React, { PropTypes } from 'react';
 import find from 'lodash/find';
-import moment from 'moment';
+
+import Gif from './Gif.jsx';
+import Info from './Info.jsx';
 
 import data from '../data';
 
@@ -23,32 +25,17 @@ export default class Single extends React.Component {
 
     render() {
         const gif = this.state.gif;
-        const time = moment(gif.import_datetime).fromNow();
-
-        let user;
-        if (gif.username === '') {
-            user = 'Anonymous Geek';
-        } else {
-            user = (
-                <img className="avatar" src={gif.user.avatar_url} alt={gif.user.username} />
-            );
-        }
-
-        let source;
-        if (gif.source === '') {
-            source = 'somewhere on internet';
-        } else {
-            source = <a href={gif.source_post_url}>{gif.source}</a>;
-        }
-
+        console.log(gif);
         return (
             <div>
-                <div className="single">
-                    <img src={gif.images.original.url} alt={gif.id} />
-                </div>
-                <div className="info">
-                    Posted <strong>{time}</strong> from {source} by {user}
-                </div>
+                <Gif url={gif.images.original.url} alt={gif.id} />
+                <Info
+                    link={gif.source_post_url}
+                    username={gif.user || {}}
+                    source={gif.source}
+                    sourceUrl={gif.source_post_url}
+                    time={gif.import_datetime}
+                />
             </div>
         );
     }
