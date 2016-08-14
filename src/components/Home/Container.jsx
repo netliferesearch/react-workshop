@@ -17,29 +17,16 @@ export default class HomeContainer extends React.Component {
 
     componentWillMount() {
         this.setState({
-            gifs: data.data,
+            gifs: sortBy(data.data, ['gif', 'trending_datetime']),
             sorting: {
-                options: ['none', 'id', 'import_datetime', 'trending_datetime'],
-                selected: 'none',
+                options: ['trending_datetime', 'import_datetime', 'username', 'id'],
+                selected: 'trending_datetime',
             },
         });
     }
 
     sortList(field) {
         return () => {
-            if (field === 'none') {
-                this.setState(
-                    update(this.state, {
-                        gifs: {
-                            $set: data.data,
-                        },
-                        sorting: {
-                            selected: { $set: field },
-                        },
-                    })
-                );
-            }
-
             this.setState(
                 update(this.state, {
                     gifs: {

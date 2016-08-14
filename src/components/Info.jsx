@@ -10,8 +10,8 @@ const Info = (props) => {
     return (
         <div className="info">
             Posted <strong>{time}</strong>
-            <Source url={props.sourceUrl} name={props.source} />
             <User user={props.user} />
+            <Source url={props.sourceUrl} name={props.source} />
         </div>
     );
 };

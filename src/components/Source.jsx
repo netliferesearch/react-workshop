@@ -6,7 +6,7 @@ const Source = (props) => {
         return <span> from somewhere on internet</span>;
     }
     return (
-        <span> from <a href={props.url}>{props.name}</a></span>
+        <span> from <a href={props.url}>source</a></span>
     );
 };
 
