@@ -1,6 +1,12 @@
-# React Workshop - SETUP
+# SETUP
 
+Å sette opp et React prosjekt krever en del "scaffholding" som kan virke litt overveldende...
+
+## Scaffholding
 * EsLint
-* Babel
 * Webpack
+* Babel
+
+## React
+* ReactDOM
 * Routes
