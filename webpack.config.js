@@ -10,6 +10,9 @@ module.exports = {
         'webpack/hot/only-dev-server',
         './src/index.jsx',
     ],
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+    },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
